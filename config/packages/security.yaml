@@ -24,7 +24,7 @@ security:
 
         api:
             pattern: ^/api
-            stateless: true
+            stateless: false
             jwt: ~
 
         main:

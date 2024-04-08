@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order index{% endblock %}
+
+{% block body %}
+    <h1>Order index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>CreatedAt</th>
+            <th>Status</th>
+            <th>Total</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in app.user.profile.orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.total }}</td>
+                <td>
+                    <a href="{{ path('app_my_orders_show', {'id': order.id}) }}">show</a>
+                </td>
+            </tr>
+            <tr>
+                {% for item in order.orderItems %}
+
+                    <p>{{ item.product.title}}</p>
+                {% endfor %}
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

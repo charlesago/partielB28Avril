@@ -37,6 +37,7 @@
             <td></td>
             <td> Grand Total :</td>
             <td><strong> {{ total}} €</strong></td>
+            <td><a href="{{ path('app_payment', {id:order.id}) }}" class="btn btn-success">Passer la commande</a></td>
         </tr>
         </tbody>
     </table>

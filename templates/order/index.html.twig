@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OrderController!{% endblock %}
+
+{% block body %}
+
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Produit</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Sous-Total</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr class="table-active">
+            {% for item in usercart.getCart() %}
+            <td>{{ item.product.title }}</td>
+            <td>{{ item.product.price}} €</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.product.price * item.quantity}} €</td>
+            <td>
+                {% endfor %}
+            </td>
+        </tr>
+
+        <tr class="table-warning">
+
+            <td></td>
+            <td></td>
+            <td></td>
+            <td> Grand Total : {{ usercart.getTotal()  }}</td>
+        </tr>
+    </table>
+
+    <p>Sélectionner une méthode de payment</p>
+
+    <form action="">
+        <div style="display: flex;flex-direction: column;margin: 30px;width: 30%;/*! padding: initial; */border-radius: 20px;">
+
+            <input type="integer" placeholder="Numéro de carte" style="border-radius: 5px;margin-bottom: 10px;border: black solid 2px;/*! border-block-end-style: double; */height: 50px;">
+            <div style="display: block ruby;/*! width: 20px; */">
+                <input type="integer" placeholder="Date" style="border-radius: 5px;margin-bottom: 10px;border: black solid 2px;/*! border-block-end-style: double; */height: 50px;width: 47%;">
+                <input type="integer" placeholder="Cryptograme" style="border-radius: 5px;margin-bottom: 10px;border: black solid 2px;/*! border-block-end-style: double; */height: 50px;">
+            </div>
+            <input type="integer" placeholder="Nom/Prénom" style="border-radius: 5px;margin-bottom: 10px;border: black solid 2px;/*! border-block-end-style: double; */height: 50px;">
+
+        </div>
+    </form>
+    <div class="container">
+        <a href="{{ path('app_make_order',{id:address.id}) }}" class="btn btn-success">Passer la commande</a>
+    </div>
+
+{% endblock %}

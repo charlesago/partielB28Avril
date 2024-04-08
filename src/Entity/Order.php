@@ -2,29 +2,30 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
+use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ProductRepository::class)]
-class Product
+#[ORM\Entity(repositoryClass: OrderRepository::class)]
+#[ORM\Table(name: '`order`')]
+class Order
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    private ?Profile $profile = null;
 
     #[ORM\Column]
-    private ?int $price = null;
+    private ?int $total = null;
 
     /**
      * @var Collection<int, OrderItem>
      */
-    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'product')]
+    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'ofOrder')]
     private Collection $orderItems;
 
     public function __construct()
@@ -37,26 +38,26 @@ class Product
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getProfile(): ?Profile
     {
-        return $this->name;
+        return $this->profile;
     }
 
-    public function setName(string $name): static
+    public function setProfile(?Profile $profile): static
     {
-        $this->name = $name;
+        $this->profile = $profile;
 
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getTotal(): ?int
     {
-        return $this->price;
+        return $this->total;
     }
 
-    public function setPrice(int $price): static
+    public function setTotal(int $total): static
     {
-        $this->price = $price;
+        $this->total = $total;
 
         return $this;
     }
@@ -73,7 +74,7 @@ class Product
     {
         if (!$this->orderItems->contains($orderItem)) {
             $this->orderItems->add($orderItem);
-            $orderItem->setProduct($this);
+            $orderItem->setOfOrder($this);
         }
 
         return $this;
@@ -83,8 +84,8 @@ class Product
     {
         if ($this->orderItems->removeElement($orderItem)) {
             // set the owning side to null (unless already changed)
-            if ($orderItem->getProduct() === $this) {
-                $orderItem->setProduct(null);
+            if ($orderItem->getOfOrder() === $this) {
+                $orderItem->setOfOrder(null);
             }
         }
 
