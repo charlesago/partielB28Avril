@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+    <a class="nav-link btn text-light" href="{{ path('app_cart') }}"><strong>Panier</strong></a>
+    <li class="nav-item">
+    <a class="nav-link" href="{{ path('create_product') }}">create</a>
+</li>
+    {% for product in products %}
+
+    <div class=" ">
+        <h1>{{ product.name }}</h1>
+        <p>{{ product.price }}</p>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('update_product', {id:product.id}) }}">update</a>
+        </li>
+    </div>
+        <a type="button" class=" btn btn-primary" href="{{ path('app_cart_add', {id:product.id, quantity:1}) }}">Ajouter au panier</a>
+    {% endfor %}
+
+{% endblock %}
+
