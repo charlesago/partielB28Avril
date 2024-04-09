@@ -25,6 +25,8 @@
             <a class="nav-link" href="{{ path('update_product', {id:product.id}) }}">update</a>
         </li>
         <a href="{{ path('app_admin_image_product_add', {id:product.id}) }}">add image</a>
+        <a href="{{ path('app_admin_product_qrcode', {name:product.name}) }}">telecharger</a>
+
 
     </div>
         <a type="button" class=" btn btn-primary" href="{{ path('app_cart_add', {id:product.id, quantity:1}) }}">Ajouter au panier</a>

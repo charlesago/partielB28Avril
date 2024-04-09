@@ -18,20 +18,18 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['show_product, myorders'])]
-
+    #[Groups(['show_product', 'myorders'])]
     private ?string $name = null;
 
     #[ORM\Column]
-    #[Groups(['show_product, myorders'])]
-
-
+    #[Groups(['show_product','myorders'])]
     private ?int $price = null;
 
     /**
      * @var Collection<int, OrderItem>
      */
     #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'product')]
+
     private Collection $orderItems;
 
     #[ORM\OneToOne(mappedBy: 'product', cascade: ['persist'], orphanRemoval: true)]
@@ -41,7 +39,6 @@ class Product
 
     #[ORM\Column(length: 2000, nullable: true)]
     #[Groups(['show_product'])]
-
     private ?string $QrCode = null;
     public function __construct()
     {

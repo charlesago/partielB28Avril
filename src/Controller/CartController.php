@@ -21,7 +21,7 @@ class CartController extends AbstractController
             $total = $cartService->getTotal()
         ];
 
-        return $this->json($response, 200, [],  ['groups' => 'show_product']);
+        return $this->json($response[], 200, [],  ['groups' => 'show_product']);
     }
 
     #[Route('/api/cart/add/{id}/{quantity}', name: 'app_cart_add')]
