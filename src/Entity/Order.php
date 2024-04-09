@@ -17,6 +17,7 @@ class Order
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Profile $profile = null;
 
     #[ORM\Column]
@@ -25,7 +26,7 @@ class Order
     /**
      * @var Collection<int, OrderItem>
      */
-    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'ofOrder')]
+    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'ofOrder', cascade: ['persist', 'remove'])]
     private Collection $orderItems;
 
     public function __construct()

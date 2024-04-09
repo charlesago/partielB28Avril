@@ -21,13 +21,13 @@
                 <td>{{ order.id }}</td>
                 <td>{{ order.total }}</td>
                 <td>
-                    <a href="{{ path('app_my_orders_show', {'id': order.id}) }}">show</a>
+                    <a href="{{ path('app_my_orders_show', {id:order.id}) }}">show</a>
                 </td>
             </tr>
             <tr>
                 {% for item in order.orderItems %}
 
-                    <p>{{ item.product.title}}</p>
+                    <p>{{ item.product.name}}</p>
                 {% endfor %}
 
             </tr>

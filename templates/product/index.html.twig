@@ -12,9 +12,20 @@
     <div class=" ">
         <h1>{{ product.name }}</h1>
         <p>{{ product.price }}</p>
+        {% if product.image is not null %}
+        <div>
+            <img src="{{ vich_uploader_asset(product.image,'imageFile') }}">
+        </div>
+        {% endif %}
+        <td>
+            {% set qrCode = product.qrcode %}
+            <img src="{{ qrCode }}" width="100px" />
+        </td>
         <li class="nav-item">
             <a class="nav-link" href="{{ path('update_product', {id:product.id}) }}">update</a>
         </li>
+        <a href="{{ path('app_admin_image_product_add', {id:product.id}) }}">add image</a>
+
     </div>
         <a type="button" class=" btn btn-primary" href="{{ path('app_cart_add', {id:product.id, quantity:1}) }}">Ajouter au panier</a>
     {% endfor %}

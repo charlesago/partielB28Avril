@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OrderController!{% endblock %}
+
+{% block body %}
+
+
+    <p>Sélectionner une méthode de payment</p>
+
+    <form action="">
+        <div style="display: flex;flex-direction: column;margin: 30px;width: 30%;/*! padding: initial; */border-radius: 20px;">
+
+            <input type="integer" placeholder="Numéro de carte" style="border-radius: 5px;margin-bottom: 10px;border: black solid 2px;/*! border-block-end-style: double; */height: 50px;">
+            <div style="display: block ruby;/*! width: 20px; */">
+                <input type="integer" placeholder="Date" style="border-radius: 5px;margin-bottom: 10px;border: black solid 2px;/*! border-block-end-style: double; */height: 50px;width: 47%;">
+                <input type="integer" placeholder="Cryptograme" style="border-radius: 5px;margin-bottom: 10px;border: black solid 2px;/*! border-block-end-style: double; */height: 50px;">
+            </div>
+            <input type="integer" placeholder="Nom/Prénom" style="border-radius: 5px;margin-bottom: 10px;border: black solid 2px;/*! border-block-end-style: double; */height: 50px;">
+
+        </div>
+    </form>
+    <div class="container">
+        <a href="{{ path('app_make_order')}}" class="btn btn-success">Passer la commande</a>
+    </div>
+
+{% endblock %}

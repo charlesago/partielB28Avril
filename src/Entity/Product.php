@@ -6,6 +6,7 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -13,12 +14,18 @@ class Product
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['show_product, myorders'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['show_product, myorders'])]
+
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Groups(['show_product, myorders'])]
+
+
     private ?int $price = null;
 
     /**
@@ -27,6 +34,15 @@ class Product
     #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'product')]
     private Collection $orderItems;
 
+    #[ORM\OneToOne(mappedBy: 'product', cascade: ['persist'], orphanRemoval: true)]
+    #[Groups(['show_product'])]
+
+    private ?Image $image = null;
+
+    #[ORM\Column(length: 2000, nullable: true)]
+    #[Groups(['show_product'])]
+
+    private ?string $QrCode = null;
     public function __construct()
     {
         $this->orderItems = new ArrayCollection();
@@ -87,6 +103,30 @@ class Product
                 $orderItem->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getQrCode(): ?string
+    {
+        return $this->QrCode;
+    }
+
+    public function setQrCode(?string $QrCode): static
+    {
+        $this->QrCode = $QrCode;
 
         return $this;
     }

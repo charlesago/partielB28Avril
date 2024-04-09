@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order{% endblock %}
+
+{% block body %}
+
+
+    <div class="d-flex text-center row">
+
+        <div>
+            <h1>Facture n°{{ order.id }}</h1>
+        </div>
+        <div>
+        </div>
+        <div class="mt-5">
+            <h3>Facturé</h3>
+            <p>vous avez été facturé de : </p>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Produit</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Quantité</th>
+                    <th scope="col">Sous-Total</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr class="table-active">
+                    {% for item in order.orderItems %}
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.product.price}} €</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.product.price * item.quantity}} €</td>
+                    <td>
+                        {% endfor %}
+                    </td>
+                </tr>
+
+                <tr class="table-warning">
+
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td> Grand Total : {{ order.total }}</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

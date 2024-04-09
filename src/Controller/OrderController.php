@@ -13,17 +13,14 @@ use Symfony\Component\Routing\Attribute\Route;
 class OrderController extends AbstractController
 {
 
-    #[Route('/payment/{id}', name: 'app_payment')]
-    public function payment(Order $order): Response
+    #[Route('/api/payment', name: 'app_payment')]
+    public function payment(): Response
     {
 
 
-        return $this->render('order/index.html.twig', [
-            'order'=>$order
-
-        ]);
+        return $this->json(200);
     }
-    #[Route('/makeorder/{id}', name: 'app_make_order')]
+    #[Route('/api/makeorder', name: 'app_make_order')]
     public function makeorder(CartService $cartService, EntityManagerInterface $manager): Response
     {
 
@@ -34,8 +31,6 @@ class OrderController extends AbstractController
         $order = new Order();
         $order->setProfile($this->getUser()->getProfile());
         $order->setTotal($cartService->getTotal());
-
-
 
         foreach ($cartService->getCart() as $item){
 
@@ -55,7 +50,7 @@ class OrderController extends AbstractController
         $this->addFlash('success', 'order confirmed');
 
 
-        return $this->redirectToRoute('app_my_orders_show', ['id'=>$order->getId()]);
+        return $this->json(200);
     }
 
 }
